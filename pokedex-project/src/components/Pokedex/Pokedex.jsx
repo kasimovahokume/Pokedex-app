@@ -1,23 +1,23 @@
 import { Pokecard } from "../Pokecard/Pokecard";
-import { pokemonData } from "../../mock/pokemons";
-import styles from "./Pokedex.module.css"
+import styles from "./Pokedex.module.css";
 
-export function Pokedex() {
-    return(
-        <div className={styles.pokedex}>
-            <h2 className={styles.title}>Pokedex list</h2>
+export function Pokedex({ pokemonList, exp, isWinner }) {
+    return (
+       
+        <section className={`${styles.pokedexSection} ${isWinner ? styles.winnerBg : styles.loserBg}`}>
+            <h2 className={isWinner ? styles.winnerTitle : styles.loserTitle}>
+                {isWinner ? "Winner" : "Lose"}
+            </h2>
+            <h3 className={styles.expCount}>{exp}</h3>
 
             <div className={styles.container}>
-                {pokemonData.map((pokemon)=>(
-                <Pokecard
-                key={pokemon.id}
-                id={pokemon.id}
-                name={pokemon.name}
-                type={pokemon.type}
-                base_experience={pokemon.base_experience}
-                />
+                {pokemonList.map((pokemon) => (
+                    <Pokecard
+                        key={pokemon.id}
+                        {...pokemon}
+                    />
                 ))}
             </div>
-        </div>
-    )
+        </section>
+    );
 }
